@@ -1,0 +1,14 @@
+# .htaccess
+RewriteEngine On
+
+# Разрешить POST запросы к PHP файлам
+<Files "submit-form.php">
+    Order Allow,Deny
+    Allow from all
+    Satisfy Any
+</Files>
+
+# Если нужно, добавить обработку CORS (если формы на другом домене)
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type"
