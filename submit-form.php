@@ -1,22 +1,52 @@
 <?php
 // submit-form.php
+
+// Включаем обработку CORS
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json; charset=utf-8');
+
+// Обрабатываем preflight OPTIONS запрос
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 // Подключаем конфиг с настройками БД
 require_once 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
-        // Получаем данные из формы
-        $name = trim($_POST['name'] ?? '');
-        $phone = trim($_POST['phone'] ?? '');
-        $email = trim($_POST['email'] ?? '');
-        $service_type = trim($_POST['service'] ?? ($_POST['object-type'] ?? ''));
-        $object_type = trim($_POST['object-type'] ?? '');
-        $area = trim($_POST['area'] ?? '');
-        $deadline = trim($_POST['deadline'] ?? '');
-        $message = trim($_POST['message'] ?? '');
-        $form_type = trim($_POST['form_type'] ?? 'service');
+        // Получаем raw data для обработки JSON
+        $input = file_get_contents('php://input');
+        
+        // Пробуем получить данные из JSON
+        $json_data = json_decode($input, true);
+        
+        // Если это JSON запрос, используем эти данные
+        if (json_last_error() === JSON_ERROR_NONE && !empty($json_data)) {
+            $name = trim($json_data['name'] ?? '');
+            $phone = trim($json_data['phone'] ?? '');
+            $email = trim($json_data['email'] ?? '');
+            $service_type = trim($json_data['service'] ?? ($json_data['object-type'] ?? ''));
+            $object_type = trim($json_data['object-type'] ?? '');
+            $area = trim($json_data['area'] ?? '');
+            $deadline = trim($json_data['deadline'] ?? '');
+            $message = trim($json_data['message'] ?? '');
+            $form_type = trim($json_data['form_type'] ?? 'service');
+        } else {
+            // Иначе используем обычные POST данные
+            $name = trim($_POST['name'] ?? '');
+            $phone = trim($_POST['phone'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $service_type = trim($_POST['service'] ?? ($_POST['object-type'] ?? ''));
+            $object_type = trim($_POST['object-type'] ?? '');
+            $area = trim($_POST['area'] ?? '');
+            $deadline = trim($_POST['deadline'] ?? '');
+            $message = trim($_POST['message'] ?? '');
+            $form_type = trim($_POST['form_type'] ?? 'service');
+        }
 
         // Валидация
         if (empty($name) || empty($phone) || empty($email)) {
@@ -42,9 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $stmt->execute([
             ':name' => $name,
-            ':phone' => $phone, // Теперь сохраняется как 8XXXXXXXXXX
+            ':phone' => $phone,
             ':email' => $email,
-            ':service_type' => $service_type, // Теперь сохраняется русское название
+            ':service_type' => $service_type,
             ':object_type' => $object_type,
             ':area' => $area,
             ':deadline' => $deadline,
@@ -82,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     http_response_code(405);
     echo json_encode([
         'success' => false, 
-        'message' => 'Неверный метод запроса'
+        'message' => 'Неверный метод запроса. Используйте POST.'
     ]);
 }
 
@@ -109,6 +139,6 @@ function sendEmailNotification($data) {
     $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
     
     // Отправляем письмо
-    mail($to, $subject, $email_body, $headers);
+    return mail($to, $subject, $email_body, $headers);
 }
 ?>
