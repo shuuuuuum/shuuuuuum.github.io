@@ -52,6 +52,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':form_type' => $form_type
         ]);
 
+        // Отправка email уведомления
+        sendEmailNotification([
+            'name' => $name,
+            'phone' => $phone,
+            'email' => $email,
+            'service_type' => $service_type,
+            'object_type' => $object_type,
+            'area' => $area,
+            'deadline' => $deadline,
+            'message' => $message,
+            'form_type' => $form_type
+        ]);
+
         // Успешный ответ
         echo json_encode([
             'success' => true, 
@@ -71,5 +84,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'success' => false, 
         'message' => 'Неверный метод запроса'
     ]);
+}
+
+// Функция для отправки email уведомления
+function sendEmailNotification($data) {
+    $to = 'lera_shumbasova@mail.ru';
+    $subject = 'Новая заявка с сайта';
+    
+    // Формируем тело письма
+    $email_body = "Новая заявка с сайта:\n\n";
+    $email_body .= "Имя: " . $data['name'] . "\n";
+    $email_body .= "Телефон: " . $data['phone'] . "\n";
+    $email_body .= "Email: " . $data['email'] . "\n";
+    $email_body .= "Тип услуги: " . $data['service_type'] . "\n";
+    $email_body .= "Тип объекта: " . $data['object_type'] . "\n";
+    $email_body .= "Площадь: " . $data['area'] . "\n";
+    $email_body .= "Сроки: " . $data['deadline'] . "\n";
+    $email_body .= "Сообщение: " . $data['message'] . "\n";
+    $email_body .= "Тип формы: " . $data['form_type'] . "\n";
+    $email_body .= "\nДата отправки: " . date('d.m.Y H:i:s') . "\n";
+    
+    $headers = "From: no-reply@" . $_SERVER['HTTP_HOST'] . "\r\n";
+    $headers .= "Reply-To: " . $data['email'] . "\r\n";
+    $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
+    
+    // Отправляем письмо
+    mail($to, $subject, $email_body, $headers);
 }
 ?>
