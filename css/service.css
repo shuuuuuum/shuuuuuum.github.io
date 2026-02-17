@@ -1,0 +1,445 @@
+/* Service Hero Section */
+.service-hero[data-service] {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--color-white);
+    padding: clamp(6rem, 15vw, 13rem) 0 clamp(5rem, 10vw, 10rem);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+}
+
+/* Затемнение как на главной странице */
+.service-hero[data-service]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(23, 35, 55, 0.7), rgba(23, 35, 55, 0.7));
+    z-index: 1;
+}
+
+/* SVG паттерн как на главной */
+.service-hero[data-service]::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" opacity="0.1"><path fill="white" d="M0 0h1200v800H0z"/><path fill="none" stroke="white" stroke-width="2" d="M0 400h1200M600 0v800"/><circle cx="300" cy="200" r="50" fill="white"/><circle cx="900" cy="600" r="50" fill="white"/></svg>');
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.service-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.service-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1rem;
+    font-weight: 700;
+    position: relative;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.service-subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    position: relative;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    line-height: 1.6;
+}
+
+/* Фоновые изображения для услуг */
+.service-hero[data-service="construction"] {
+    background-image: url('../images/services/construction-bg.jpg');
+}
+
+.service-hero[data-service="design"] {
+    background-image: url('../images/services/desing-bg.jpg');
+}
+
+.service-hero[data-service="municipal"] {
+    background-image: url('../images/services/municipal-bg.jpg');
+}
+
+.service-hero[data-service="engineering"] {
+    background-image: url('../images/services/engineering-bg.jpeg');
+}
+
+.service-hero[data-service="private"] {
+    background-image: url('../images/services/private-bg.jpg');
+}
+
+.service-hero[data-service="legal"] {
+    background-image: url('../images/services/legal-bg.jpg');
+}
+
+.service-hero[data-service="examination"] {
+    background-image: url('../images/services/examination-bg.png');
+}
+
+.service-hero[data-service="reconstruction"] {
+    background-image: url('../images/services/restoration-bg.png');
+}
+
+/* Service Details Section */
+.service-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+}
+
+.service-main h2 {
+    color: var(--color-dark-blue);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.service-main p {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.contact-info h3 {
+    color: var(--color-dark-blue);
+}
+
+.contact-item {
+    margin-top: 1rem;
+}
+
+.contact-item strong {
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.contact-item a {
+    color: var(--color-dark-gray);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.contact-form {
+    background: var(--color-white);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow-light);
+}
+
+/* Service Features */
+.service-features {
+    margin: 3rem 0;
+}
+
+.service-features h3 {
+    color: var(--color-dark-blue);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.feature-item {
+    background: var(--color-white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+
+.feature-item h4 {
+    color: var(--color-dark-blue);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    border-bottom: 1px solid var(--color-dark-blue);
+    padding-bottom: 0.5rem;
+}
+
+/* Service Process */
+.service-process {
+    margin: 3rem 0;
+}
+
+.service-process h3 {
+    color: var(--color-dark-blue);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.process-step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: var(--color-dark-blue);
+    color: var(--color-white);
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.step-content h4 {
+    color: var(--color-dark-blue);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.step-content p {
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+/* Service Sidebar */
+.service-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sidebar-widget {
+    background: var(--color-white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-widget h3 {
+    color: var(--color-dark-blue);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    border-bottom: 2px solid var(--color-dark-blue);
+    padding-bottom: 0.5rem;
+}
+
+.service-links {
+    list-style: none;
+}
+
+.service-links li {
+    margin-bottom: 0.7rem;
+}
+
+.service-links a {
+    color: var(--color-dark-gray);
+    text-decoration: none;
+    transition: color 0.3s;
+    display: block;
+    padding: 0.3rem 0;
+}
+
+.service-links a:hover {
+    color: var(--color-dark-blue);
+    padding-left: 5px;
+}
+
+.timing-info p {
+    margin-bottom: 0.5rem;
+}
+
+.pricing-info p {
+    margin-bottom: 1rem;
+}
+
+.pricing-info ul {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.pricing-info li {
+    margin-bottom: 0.5rem;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--color-dark-blue);
+    border: 2px solid var(--color-dark-blue);
+}
+
+.btn-outline:hover {
+    background-color: var(--color-dark-blue);
+    color: var(--color-white);
+}
+
+/* Service Contact Section - с фоновым изображением как на главной */
+.service-contact {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    padding: 5rem 0;
+}
+
+/* Фон с псевдоэлементом - ТОТ ЖЕ САМЫЙ как на главной */
+.service-contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/b2dacfd8f76c11f0a9ca7ebdba52a892_1.jpg);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5; /* Такая же прозрачность как на главной */
+    z-index: 1;
+}
+
+/* Контейнер с контентом */
+.service-contact > .container {
+    position: relative;
+    z-index: 2; /* Контент поверх фона */
+    background: transparent; /* Прозрачный фон для контейнера */
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.contact-info h3 {
+    color: var(--color-dark-blue);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-item {
+    margin-top: 1rem;
+}
+
+.contact-item strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--color-dark-blue);
+}
+
+.contact-item a {
+    color: var(--color-dark-gray);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.contact-item a:hover {
+    color: var(--color-dark-blue);
+}
+
+.contact-form {
+    background: var(--color-white);
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow-light);
+}
+
+/* Адаптивность для контактной формы */
+@media (max-width: 992px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .contact-info {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-contact {
+        padding: 3rem 0;
+    }
+    
+    .contact-form {
+        padding: 1.5rem;
+    }
+}
+/* Адаптивность */
+@media (max-width: 992px) {
+    .service-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-sidebar {
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-hero[data-service] {
+        padding: 8rem 0 6rem;
+        min-height: 500px;
+    }
+    
+    .service-title {
+        font-size: 2.2rem;
+    }
+    
+    .service-subtitle {
+        font-size: 1rem;
+    }
+    
+    .process-step {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .step-number {
+        align-self: center;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
